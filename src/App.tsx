@@ -1,9 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Header from "./components/header"
-
-
+import { productsWithImages, images } from "./images/imagesLoader";
+import ProductList from './components/product-list';
+import Product from './components/product';
 class StoreInput extends React.Component<any, any> {
 
     constructor(props: any) {
@@ -16,18 +16,27 @@ class StoreInput extends React.Component<any, any> {
     }
 }
 // string, number, boolean, any
-// function StoreInput(props: any) {
-//     return <input value={props.input} />
-// }
+function StoreInput1(props: { input: number }) {
+    return <input value={props.input} />
+}
+
+const productOfTheWeek = productsWithImages[Math.round(Math.random() * 4)]
 
 const App: React.FC = () => {
+
     return (
         <div className="App">
             <Header title="Store" />
-            <StoreInput input={"this is our input"} />
+            <Header title="Products" />
 
+            <ProductList products={productsWithImages} />
+            <Header title="Product of the week!" />
+            <Product {...productOfTheWeek} />
+            {images.map((p: string) => <img src={p} />)}
         </div>
     );
 }
+//     const props = { products: [...products] }
+// <ProductList {...props} />
 
 export default App;
