@@ -1,19 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Header from "./components/header"
-
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Header from "./components/header";
+import AddProduct from "./components/add-products";
 
 class StoreInput extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+  }
 
-    constructor(props: any) {
-        super(props)
-
-    }
-
-    render() {
-        return <input value={this.props.input} />
-    }
+  render() {
+    return <input value={this.props.input} />;
+  }
 }
 // string, number, boolean, any
 // function StoreInput(props: any) {
@@ -21,13 +19,13 @@ class StoreInput extends React.Component<any, any> {
 // }
 
 const App: React.FC = () => {
-    return (
-        <div className="App">
-            <Header title="Store" />
-            <StoreInput input={"this is our input"} />
-
-        </div>
-    );
-}
+  return (
+    <div className="App">
+      <Header title="Store" />
+      {/* <StoreInput input={"this is our input"} /> */}
+      <AddProduct />
+    </div>
+  );
+};
 
 export default App;
