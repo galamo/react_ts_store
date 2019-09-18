@@ -1,21 +1,25 @@
+
 import React from 'react';
 import './App.css';
 import Header from "./components/header"
 import { productsWithImages, images } from "./images/imagesLoader";
 import ProductList from './components/product-list';
 import Product from './components/product';
+import Header from "./components/header";
+import AddProduct from "./components/add-products";
+
+
 class StoreInput extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+  }
 
-    constructor(props: any) {
-        super(props)
-
-    }
-
-    render() {
-        return <input value={this.props.input} />
-    }
+  render() {
+    return <input value={this.props.input} />;
+  }
 }
 // string, number, boolean, any
+
 function StoreInput1(props: { input: number }) {
     return <input value={props.input} />
 }
