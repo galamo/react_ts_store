@@ -7,6 +7,7 @@ import ProductList from './components/product-list';
 import Product from './components/product';
 import Header from "./components/header";
 import AddProduct from "./components/add-products";
+import Search from './components/search';
 
 
 class StoreInput extends React.Component<any, any> {
@@ -58,33 +59,14 @@ class App extends React.Component<any, any>{
     }
 
     render() {
-        const { connectedUser, productList, pow, filteredProductList, fullProductList } = this.state;
-
-
-
-
-
+        const { connectedUser, pow, filteredProductList, fullProductList, onSale, searchValue } = this.state;
+        const searchProps = { searchOperation: this.searchOperation, onSale, searchValue }
         return (
             <div className="App" >
                 <Header title={"hello " + connectedUser} />
                 <Header title="Add Product" />
                 <Header title="Search" />
-                <div>
-                    <input value={this.state.searchValue} onChange={(e) => {
-                        const searchValue = e.target.value;
-                        const { onSale } = this.state;
-                        this.searchOperation(searchValue, onSale);
-
-                    }} />
-                </div>
-                <div>
-                    OnSale ?
-                    <input type="checkbox" onChange={(e) => {
-                        const onSale = e.target.checked;
-                        const { searchValue } = this.state;
-                        this.searchOperation(searchValue, onSale);
-                    }} />
-                </div>
+                <Search {...searchProps} />
                 <Header title="Products" />
                 {filteredProductList.length ? <ProductList products={filteredProductList} /> : <h1> No Prodcuts Found</h1>}
                 <Header title="Product of the week!" />
