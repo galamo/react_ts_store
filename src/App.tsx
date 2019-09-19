@@ -67,6 +67,7 @@ class App extends React.Component<any, any>{
                 <Header title="Add Product" />
                 <Header title="Search" />
                 <Search {...searchProps} />
+                {getCategories(fullProductList)}
                 <Header title="Products" />
                 {filteredProductList.length ? <ProductList products={filteredProductList} /> : <h1> No Prodcuts Found</h1>}
                 <Header title="Product of the week!" />
@@ -79,5 +80,12 @@ class App extends React.Component<any, any>{
 }
 //     const props = { products: [...products] }
 // <ProductList {...props} />
+
+function getCategories(products: Array<any>) {
+    const spans = products.reduce((allCats, p: any) => {
+        return { ...allCats, [p.Category]: true }
+    }, {})
+    return Object.keys(spans).map(item => <h2> {item} </h2>)
+}
 
 export default App;
