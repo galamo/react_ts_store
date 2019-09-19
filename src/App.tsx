@@ -8,6 +8,7 @@ import Product from './components/product';
 import Header from "./components/header";
 import AddProduct from "./components/add-products";
 import Search from './components/search';
+import CreateProduct from './components/create-product';
 
 
 class StoreInput extends React.Component<any, any> {
@@ -67,9 +68,12 @@ class App extends React.Component<any, any>{
             <div className="App" >
                 <Header title={"hello " + connectedUser} />
                 <Header title="Add Product" />
+                <CreateProduct addProductToList={(product: any) => {
+                    const newData = [...this.state.fullProductList, { ...product, onSale: true }];
+                    this.setState({ filteredProductList: newData, fullProductList: newData })
+                }} />
                 <Header title="Search" />
                 <Search {...searchProps} />
-
                 <Header title="Products" />
                 {filteredProductList.length ? <ProductList products={filteredProductList} /> : <h1> No Prodcuts Found</h1>}
                 <Header title="Product of the week!" />
@@ -84,10 +88,10 @@ class App extends React.Component<any, any>{
 // <ProductList {...props} />
 
 function getCategories(products: Array<any>) {
-    const spans = products.reduce((allCats, p: any) => {
+    return Object.keys(products.reduce((allCats, p: any) => {
         return { ...allCats, [p.Category]: true }
-    }, { "all": true })
-    return Object.keys(spans);
+    }, { "all": true }))
+
 }
 
 export default App;
