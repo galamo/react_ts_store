@@ -36,6 +36,7 @@ class App extends React.Component<any, any>{
         super(props)
 
         this.state = {
+            cat: "all",
             // filters: { searchValue: "", onSale: false },
             searchValue: "",
             onSale: false,
@@ -46,28 +47,29 @@ class App extends React.Component<any, any>{
         }
     }
 
-    searchOperation = (searchText: string, onSale: Boolean): void => {
+    searchOperation = (searchText: string, onSale: Boolean, cat?: string): void => {
         // if (!searchText || !onSale) return;
 
         const { fullProductList } = this.state
         const filteredData = fullProductList.filter((product: any) => {
-            const isOnSale = onSale ? product.onSale : true
-            return product.Name.toLowerCase().includes(searchText) && isOnSale
+            const isOnSale = onSale ? product.onSale : true;
+            const isCat = cat !== "all" ? product.Category === cat : true
+            return product.Name.toLowerCase().includes(searchText) && isOnSale && isCat
         })
-        this.setState({ filteredProductList: filteredData, searchValue: searchText, onSale })
+        this.setState({ cat, filteredProductList: filteredData, searchValue: searchText, onSale })
 
     }
 
     render() {
         const { connectedUser, pow, filteredProductList, fullProductList, onSale, searchValue } = this.state;
-        const searchProps = { searchOperation: this.searchOperation, onSale, searchValue }
+        const searchProps = { cat: this.state.cat, categories: getCategories(fullProductList), searchOperation: this.searchOperation, onSale, searchValue }
         return (
             <div className="App" >
                 <Header title={"hello " + connectedUser} />
                 <Header title="Add Product" />
                 <Header title="Search" />
                 <Search {...searchProps} />
-                {getCategories(fullProductList)}
+
                 <Header title="Products" />
                 {filteredProductList.length ? <ProductList products={filteredProductList} /> : <h1> No Prodcuts Found</h1>}
                 <Header title="Product of the week!" />
@@ -84,8 +86,8 @@ class App extends React.Component<any, any>{
 function getCategories(products: Array<any>) {
     const spans = products.reduce((allCats, p: any) => {
         return { ...allCats, [p.Category]: true }
-    }, {})
-    return Object.keys(spans).map(item => <h2> {item} </h2>)
+    }, { "all": true })
+    return Object.keys(spans);
 }
 
 export default App;
