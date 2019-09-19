@@ -25,12 +25,12 @@ export const images = importAll(require.context('./', false, /\.(png|jpe?g|svg)$
 
 
 const products = [
-    { id: 1, "Name": "Cheese", "Price": 2.50, "Location": "Refrigerated foods" },
-    { id: 2, "Name": "Crisps", "Price": 3, "Location": "the Snack isle" },
-    { id: 3, "Name": "Pizza", "Price": 4, "Location": "Refrigerated foods" },
-    { id: 4, "Name": "Chocolate", "Price": 1.50, "Location": "the Snack isle" },
-    { id: 5, "Name": "Ground almonds", "Price": 3, "Location": "Home baking" },
-    { id: 6, "Name": "Corn", "Price": 32, "Location": "afadf" }
+    { onSale: true, id: 1, "Name": "Raid", "Price": 2.50, "Location": "Refrigerated foods" },
+    { onSale: false, id: 2, "Name": "Camera", "Price": 3, "Location": "the Snack isle" },
+    { onSale: true, id: 3, "Name": "Dove", "Price": 4, "Location": "Refrigerated foods" },
+    { onSale: false, id: 4, "Name": "Cheese Gauda", "Price": 1.50, "Location": "the Snack isle" },
+    { onSale: true, id: 5, "Name": "Pizza Dominos", "Price": 3, "Location": "Home baking" },
+    { onSale: true, id: 6, "Name": "Almonds", "Price": 32, "Location": "afadf" }
 ]
 
 export const productsWithImages = products.map((p, index) => { return { ...p, image: images[index] } })
