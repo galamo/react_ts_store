@@ -1,8 +1,21 @@
 import React from "react";
 
 export default class Search extends React.Component<any, any>{
+    constructor(props: any) {
+        super(props)
+        console.log("Search component constructor...")
+    }
+
+    componentDidMount() {
+        console.log("Search component mounted")
+    }
+
+    componentWillReceiveProps() {
+        console.log("this..props..");
+    }
 
     render() {
+        console.log("Search component renderded..")
         const { onSale, searchValue, searchOperation, categories, cat } = this.props
         return (
             <div>

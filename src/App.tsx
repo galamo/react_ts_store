@@ -9,6 +9,7 @@ import Header from "./components/header";
 import AddProduct from "./components/add-products";
 import Search from './components/search';
 import CreateProduct from './components/create-product';
+import AddBook from './components/add-book-ooc';
 
 
 class StoreInput extends React.Component<any, any> {
@@ -45,6 +46,7 @@ class App extends React.Component<any, any>{
             filteredProductList: productsWithImages,
             fullProductList: productsWithImages,
             pow: Math.round(Math.random() * 4),
+            books: []
         }
     }
 
@@ -61,6 +63,10 @@ class App extends React.Component<any, any>{
 
     }
 
+    addBookFather = (book: any) => {
+        this.setState({ books: [...this.state.books, book] })
+    }
+
     render() {
         const { connectedUser, pow, filteredProductList, fullProductList, onSale, searchValue } = this.state;
         const searchProps = { cat: this.state.cat, categories: getCategories(fullProductList), searchOperation: this.searchOperation, onSale, searchValue }
@@ -74,11 +80,14 @@ class App extends React.Component<any, any>{
                 }} />
                 <Header title="Search" />
                 <Search {...searchProps} />
+
                 <Header title="Products" />
                 {filteredProductList.length ? <ProductList products={filteredProductList} /> : <h1> No Prodcuts Found</h1>}
                 <Header title="Product of the week!" />
                 <Product {...fullProductList[pow]} />
                 {images.map((p: string) => <img key={p} src={p} />)}
+
+
             </div >
         );
     }
