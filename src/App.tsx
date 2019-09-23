@@ -46,7 +46,7 @@ class App extends React.Component<any, any>{
             filteredProductList: productsWithImages,
             fullProductList: productsWithImages,
             pow: Math.round(Math.random() * 4),
-            books: []
+            cart: []
         }
     }
 
@@ -67,8 +67,12 @@ class App extends React.Component<any, any>{
         this.setState({ books: [...this.state.books, book] })
     }
 
+    addToCart = (product: any) => {
+        this.setState({ cart: [...this.state.cart, product] })
+    }
+
     render() {
-        const { connectedUser, pow, filteredProductList, fullProductList, onSale, searchValue } = this.state;
+        const { connectedUser, cart, pow, filteredProductList, fullProductList, onSale, searchValue } = this.state;
         const searchProps = { cat: this.state.cat, categories: getCategories(fullProductList), searchOperation: this.searchOperation, onSale, searchValue }
         return (
             <div className="App" >
@@ -82,7 +86,9 @@ class App extends React.Component<any, any>{
                 <Search {...searchProps} />
 
                 <Header title="Products" />
-                {filteredProductList.length ? <ProductList products={filteredProductList} /> : <h1> No Prodcuts Found</h1>}
+                {filteredProductList.length ? <ProductList addToCart={this.addToCart} products={filteredProductList} /> : <h1> No Prodcuts Found</h1>}
+                <Header title="Cart" />
+                {filteredProductList.length ? <ProductList products={cart} /> : <h1> No Cart Items</h1>}
                 <Header title="Product of the week!" />
                 <Product {...fullProductList[pow]} />
                 {images.map((p: string) => <img key={p} src={p} />)}
