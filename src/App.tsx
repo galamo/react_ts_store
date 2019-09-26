@@ -10,26 +10,21 @@ import AddProduct from "./components/add-products";
 import Search from './components/search';
 import CreateProduct from './components/create-product';
 import AddBook from './components/add-book-ooc';
+import CountriesPage from './components/countries';
+import ButtonAppBar from "./components/navBar/index"
 
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+// BrowserRouter as Router, Route,
 
-class StoreInput extends React.Component<any, any> {
-    constructor(props: any) {
-        super(props);
-    }
-    render() {
-        return <input value={this.props.input} />;
-    }
-}
-// string, number, boolean, any
-
-function StoreInput1(props: { input: number }) {
-    return <input value={props.input} />
-}
 
 const productOfTheWeek = productsWithImages[Math.round(Math.random() * 4)]
 
 
-// code ! out of context 
+function TestComponent() {
+    return <div>
+        This Component is Great!!!
+    </div>
+}
 
 
 class App extends React.Component<any, any>{
@@ -76,7 +71,15 @@ class App extends React.Component<any, any>{
         const searchProps = { cat: this.state.cat, categories: getCategories(fullProductList), searchOperation: this.searchOperation, onSale, searchValue }
         return (
             <div className="App" >
-                <Header title={"hello " + connectedUser} />
+                <BrowserRouter>
+                    <ButtonAppBar />
+
+                    <Switch>
+                        <Route path="/countries" component={CountriesPage} />
+                        <Route path="/products" component={TestComponent} />
+                    </Switch>
+
+                    {/**
                 <Header title="Add Product" />
                 <CreateProduct addProductToList={(product: any) => {
                     const newData = [...this.state.fullProductList, { ...product, onSale: true }];
@@ -93,7 +96,10 @@ class App extends React.Component<any, any>{
                 <Product {...fullProductList[pow]} />
                 {images.map((p: string) => <img key={p} src={p} />)}
 
+                
+                */}
 
+                </BrowserRouter>
             </div >
         );
     }
@@ -101,6 +107,11 @@ class App extends React.Component<any, any>{
 }
 //     const props = { products: [...products] }
 // <ProductList {...props} />
+
+
+// {filteredProductList.length ? <ProductList addToCart={this.addToCart} products={filteredProductList} /> : <h1> No Prodcuts Found</h1>}
+// <CountriesPage />
+
 
 function getCategories(products: Array<any>) {
     return Object.keys(products.reduce((allCats, p: any) => {
