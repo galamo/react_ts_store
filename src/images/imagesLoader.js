@@ -25,12 +25,13 @@ export const images = importAll(require.context('./', false, /\.(png|jpe?g|svg)$
 
 
 const products = [
-    { Category: "A", onSale: true, id: 1, "Name": "Raid", "Price": 2.50, "Location": "Refrigerated foods" },
-    { Category: "B", onSale: false, id: 2, "Name": "Camera", "Price": 3, "Location": "the Snack isle" },
-    { Category: "C", onSale: true, id: 3, "Name": "Dove", "Price": 4, "Location": "Refrigerated foods" },
-    { Category: "D", onSale: false, id: 4, "Name": "Cheese Gauda", "Price": 1.50, "Location": "the Snack isle" },
-    { Category: "D", onSale: true, id: 5, "Name": "Pizza Dominos", "Price": 3, "Location": "Home baking" },
-    { Category: "D", onSale: true, id: 6, "Name": "Almonds", "Price": 32, "Location": "afadf" }
+    { buy: "button", CreatedAt: new Date().toISOString(), Category: "A", onSale: true, id: 1, "Name": "Raid", "Price": 2.50, "Location": "Refrigerated foods" },
+    { buy: "button", CreatedAt: new Date().toISOString(), Category: "B", onSale: false, id: 2, "Name": "Camera", "Price": 3, "Location": "the Snack isle" },
+    { buy: "button", CreatedAt: new Date().toISOString(), Category: "C", onSale: true, id: 3, "Name": "Dove", "Price": 4, "Location": "Refrigerated foods" },
+    { buy: "button", CreatedAt: new Date().toISOString(), Category: "D", onSale: false, id: 4, "Name": "Cheese Gauda", "Price": 1.50, "Location": "the Snack isle" },
+    { buy: "button", CreatedAt: new Date().toISOString(), Category: "D", onSale: true, id: 5, "Name": "Pizza Dominos", "Price": 3, "Location": "Home baking" },
+    { buy: "button", CreatedAt: new Date().toISOString(), Category: "D", onSale: true, id: 6, "Name": "Almonds", "Price": 32, "Location": "afadf" }
 ]
 
-export const productsWithImages = products.map((p, index) => { return { ...p, image: images[index] } })
+// export const productsWithImages = products.map((p, index) => { return { ...p, image: images[index] } })
+export const productsWithImages = products.map((p, index) => { return { ...p } })
