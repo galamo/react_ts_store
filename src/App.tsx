@@ -14,6 +14,7 @@ import CountriesPage from './components/countries';
 import ButtonAppBar from "./components/navBar/index"
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Country from './components/country';
 // BrowserRouter as Router, Route,
 
 
@@ -77,6 +78,8 @@ class App extends React.Component<any, any>{
                     <Switch>
                         <Route path="/countries" component={CountriesPage} />
                         <Route path="/products" component={TestComponent} />
+                        <Route path="/country/:code" component={Country} />
+                        <Route path="**" component={() => <h1> Not Found! </h1>} />
                     </Switch>
 
                     {/**

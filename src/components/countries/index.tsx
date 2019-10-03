@@ -2,6 +2,7 @@ import React from "react"
 import Header from "../header"
 import axios from "axios";
 import StoreTable from "../store-table";
+import { Link } from "react-router-dom"
 // statful component
 // countries
 
@@ -82,6 +83,7 @@ function getTableRow(row: any) {
     // })
 
     return Object.entries(row).map(([key, value]) => {
+        //switch case
 
         if (key === "region" && value === "Europe") return <td> <span>&#127379;</span> {value} </td>
         if (Array.isArray(value)) {
@@ -90,6 +92,7 @@ function getTableRow(row: any) {
 
         }
         if (key === "flag") return <td> <img src={value as string} height={100} width={100} /> </td>
+        if (key === "code") return <td> <Link to={`/country/${value}`}>{value as string}</Link> </td>
         return <td> {value} </td>
     })
 }
