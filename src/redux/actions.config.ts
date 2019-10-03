@@ -1,0 +1,4 @@
+export default {
+    SAVE_USER: "SAVE_USER",
+    GET_COUNTRIES: "GET_COUNTRIES_ACTION"
+}

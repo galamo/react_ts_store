@@ -34,7 +34,7 @@ export default function ButtonAppBar() {
                     <Typography variant="h6" className={classes.title}>
                         Store
                      </Typography>
-                    <Button color="inherit"><Link to="/products">Prodcuts</Link></Button>
+                    <Button color="inherit"><Link to="/settings">Prodcuts</Link></Button>
                     <Button color="inherit"><Link to="/countries">Countries</Link></Button>
                 </Toolbar>
             </AppBar>
