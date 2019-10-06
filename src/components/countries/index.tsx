@@ -3,13 +3,14 @@ import Header from "../header"
 import axios from "axios";
 import StoreTable from "../store-table";
 import { Link } from "react-router-dom"
+import { connect } from "react-redux";
 // statful component
 // countries
 
 
 
 
-export default class CountriesPage extends React.Component<any, any>{
+class CountriesPage extends React.Component<any, any>{
     constructor(props: any) {
         super(props)
         this.state = { countries: [] }
@@ -39,14 +40,13 @@ export default class CountriesPage extends React.Component<any, any>{
     }
 
     render() {
-        console.log("component is rendering!!!!", this.state.countries)
         const { countries } = this.state;
         if (!countries.length) return null;
         const headers = getHeaders(countries)
         const data = getTableBody(countries)
         return (
             <div>
-                <Header title="Countries" />
+                <Header title={this.props.user || "default"} />
                 <StoreTable headers={headers} data={data} />
             </div>
         )
@@ -97,5 +97,13 @@ function getTableRow(row: any) {
     })
 }
 
+const mapStateToProps = (state: any) => {
+    // return the state from the store to the component props
+    console.log("CountriesPage: state from redux after changing user", state)
+    return state;
+}
 
-
+const mapDispatchToProps = (dispatch: any) => {
+    return {}
+}
+export default connect(mapStateToProps, null)(CountriesPage)

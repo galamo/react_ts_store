@@ -5,7 +5,7 @@ import axios from "axios"
 export default class Country extends React.Component<any, any>{
     constructor(props: any) {
         super(props)
-        console.log(props.match.params.code)
+        console.log(props.match)
         this.state = { currentCountry: null }
     }
 
