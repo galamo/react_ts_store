@@ -24,6 +24,12 @@ export default function root(state = initialState, action: any) {
             }
 
         }
+
+        case Actions.ADD_COUNTRY_TO_FAVORITES: {
+            console.log(action.payload.country)
+            return { ...state }
+        }
+
         default: {
             return state;
         }

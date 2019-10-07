@@ -6,3 +6,10 @@ export const saveUserAction = (user: any) => {
         payload: { user }
     }
 }
+
+export const addCountryToFavoritesAction = (country: any) => {
+    return {
+        type: Actions.ADD_COUNTRY_TO_FAVORITES,
+        payload: { country }
+    }
+}

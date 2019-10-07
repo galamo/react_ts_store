@@ -36,7 +36,16 @@ export default class Country extends React.Component<any, any>{
     render() {
         const { currentCountry } = this.state
         if (!currentCountry) return <h1>Loading...</h1>
-        return (<span> This is country: {JSON.stringify(this.state.currentCountry)} </span>)
-    }
+        const { name, flag, borders, currencies } = currentCountry;
+        return (<div>
+            <h1> {name} </h1>
+            <img src={flag} width={400} height={400} />
+            {getBorders(borders)}
+        </div>)
 
+    }
+}
+
+function getBorders(borders: any) {
+    return <ol> {borders.map((border: string) => <li>{border}</li>)}</ol>
 }
