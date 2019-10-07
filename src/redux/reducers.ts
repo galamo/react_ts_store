@@ -1,7 +1,8 @@
 import Actions from "./actions.config";
 
 const initialState = {
-    user: null
+    user: null,
+    favorites: []
 }
 
 export default function root(state = initialState, action: any) {
@@ -26,8 +27,9 @@ export default function root(state = initialState, action: any) {
         }
 
         case Actions.ADD_COUNTRY_TO_FAVORITES: {
-            console.log(action.payload.country)
-            return { ...state }
+            const { country } = action.payload;
+            const { favorites } = state;
+            return { ...state, favorites: [...favorites, country] }
         }
 
         default: {

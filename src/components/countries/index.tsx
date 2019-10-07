@@ -4,6 +4,7 @@ import axios from "axios";
 import StoreTable from "../store-table";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { addCountryToFavoritesAction } from "../../redux/actions";
 // statful component
 // countries
 
@@ -36,11 +37,70 @@ class CountriesPage extends React.Component<any, any> {
         });
     }
 
+    getTableBody = (data: Array<any>) => {
+        return data.map((dataItem: any) => {
+            return <tr>{this.getTableRow(dataItem)}</tr>;
+        });
+    }
+
+    getTableRow = (row: any) => {
+        return Object.entries(row).map(([key, value]) => {
+            //switch case
+
+            if (key === "region" && value === "Europe")
+                return (
+                    <td>
+                        {" "}
+                        <span>&#127379;</span> {value}{" "}
+                    </td>
+                );
+            if (Array.isArray(value)) {
+                const strBorders = value.join(",");
+                return strBorders.includes("IRN") ? (
+                    <td>
+                        {" "}
+                        <span>&#128013;</span> {strBorders}{" "}
+                    </td>
+                ) : (
+                        <td> {strBorders} </td>
+                    );
+            }
+            if (key === "flag")
+                return (
+                    <td>
+                        {" "}
+                        <img src={value as string} height={100} width={100} />{" "}
+                    </td>
+                );
+            if (key === "code")
+                return (
+                    <td>
+                        {" "}
+                        <Link to={`/country/${value}`}>{value as string}</Link>{" "}
+                    </td>
+                );
+            if (key === "name")
+                return (
+                    <td>
+                        <button onClick={() => {
+                            const { addToFavorites } = this.props.reduxAxtions;
+                            addToFavorites(row)
+                        }} className="btn btn-success"> {value} </button>
+                    </td>
+                );
+            return <td> {value} </td>;
+        });
+    }
+
+    // onChangeInput = (e: any) => {
+    //     this.setState({ name: e.taget.value })
+    // }
+
     render() {
         const { countries } = this.state;
         if (!countries.length) return null;
         const headers = getHeaders(countries);
-        const data = getTableBody(countries);
+        const data = this.getTableBody(countries);
         return (
             <div>
                 <div>
@@ -68,60 +128,9 @@ function getHeaders(data: Array<any>) {
     });
 }
 
-function getTableBody(data: Array<any>) {
-    return data.map((dataItem: any) => {
-        return <tr>{getTableRow(dataItem)}</tr>;
-    });
-}
 
-function getTableRow(row: any) {
-    return Object.entries(row).map(([key, value]) => {
-        //switch case
 
-        if (key === "region" && value === "Europe")
-            return (
-                <td>
-                    {" "}
-                    <span>&#127379;</span> {value}{" "}
-                </td>
-            );
-        if (Array.isArray(value)) {
-            const strBorders = value.join(",");
-            return strBorders.includes("IRN") ? (
-                <td>
-                    {" "}
-                    <span>&#128013;</span> {strBorders}{" "}
-                </td>
-            ) : (
-                    <td> {strBorders} </td>
-                );
-        }
-        if (key === "flag")
-            return (
-                <td>
-                    {" "}
-                    <img src={value as string} height={100} width={100} />{" "}
-                </td>
-            );
-        if (key === "code")
-            return (
-                <td>
-                    {" "}
-                    <Link to={`/country/${value}`}>{value as string}</Link>{" "}
-                </td>
-            );
-        if (key === "name")
-            return (
-                <td>
-                    <button onClick={() => {
-                        //call to add to favorite - dispatch of action
-                        console.log(row)
-                    }} className="btn btn-success"> {value} </button>
-                </td>
-            );
-        return <td> {value} </td>;
-    });
-}
+
 
 const mapStateToProps = (state: any) => {
     // return the state from the store to the component props
@@ -130,9 +139,16 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => {
-    return {};
+    return {
+        //this object will be assigned to the component props
+        reduxAxtions: {
+            addToFavorites: (country: any) => {
+                dispatch(addCountryToFavoritesAction(country))
+            }
+        }
+    };
 };
 export default connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(CountriesPage);
