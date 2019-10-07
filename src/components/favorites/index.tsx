@@ -54,14 +54,12 @@ function ListComponent(props: any) {
 
 
 const mapStateToProps = (state: any) => { // state from redux
+    console.log(state, "mapStateToProps");
     const { favorites } = state;
     return { favorites };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-    };
-};
+
 export default connect(
     mapStateToProps,
     null

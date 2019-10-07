@@ -4,35 +4,36 @@ import axios from "axios";
 import StoreTable from "../store-table";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { addCountryToFavoritesAction } from "../../redux/actions";
+import { addCountryToFavoritesAction, getCountriesAction } from "../../redux/actions";
 // statful component
 // countries
 
 class CountriesPage extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
-        this.state = { countries: [] };
+        // this.state = { countries: [] };
     }
 
     componentDidMount() {
-        axios.get("https://restcountries.eu/rest/v2/all").then(res => {
-            console.log("data resolved");
-            console.log("set state");
-            // i got information
-            this.setState({
-                countries: res.data.map((country: any) => {
-                    const { capital, name, alpha3Code, region, borders, flag } = country;
-                    return {
-                        capital: capital,
-                        name: name,
-                        code: alpha3Code,
-                        region: region,
-                        borders: borders,
-                        flag: flag
-                    };
-                })
-            });
-        });
+        // axios.get("https://restcountries.eu/rest/v2/all").then(res => {
+        //     console.log("data resolved");
+        //     console.log("set state");
+        //     // i got information
+        //     this.setState({
+        //         countries: res.data.map((country: any) => {
+        //             const { capital, name, alpha3Code, region, borders, flag } = country;
+        //             return {
+        //                 capital: capital,
+        //                 name: name,
+        //                 code: alpha3Code,
+        //                 region: region,
+        //                 borders: borders,
+        //                 flag: flag
+        //             };
+        //         })
+        //     });
+        // });
+        console.log(this.props.reduxActions.getCountries())
     }
 
     getTableBody = (data: Array<any>) => {
@@ -81,7 +82,7 @@ class CountriesPage extends React.Component<any, any> {
                 return (
                     <td>
                         <button onClick={() => {
-                            const { addToFavorites } = this.props.reduxAxtions;
+                            const { addToFavorites } = this.props.reduxActions;
                             addToFavorites(row)
                         }} className="btn btn-success"> {value} </button>
                     </td>
@@ -95,7 +96,7 @@ class CountriesPage extends React.Component<any, any> {
     // }
 
     render() {
-        const { countries } = this.state;
+        const { countries } = this.props;
         if (!countries.length) return null;
         const headers = getHeaders(countries);
         const data = this.getTableBody(countries);
@@ -131,17 +132,18 @@ function getHeaders(data: Array<any>) {
 
 
 const mapStateToProps = (state: any) => {
-    // return the state from the store to the component props
-    console.log("CountriesPage: state from redux after changing user", state);
     return state;
 };
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
         //this object will be assigned to the component props
-        reduxAxtions: {
+        reduxActions: {
             addToFavorites: (country: any) => {
                 dispatch(addCountryToFavoritesAction(country))
+            },
+            getCountries: () => {
+                dispatch(getCountriesAction())
             }
         }
     };

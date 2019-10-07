@@ -6,7 +6,8 @@
 //4. connect
 import { createStore, applyMiddleware } from "redux"
 import root from "./reducers"
-const store = createStore(root)
+import thunk from "redux-thunk";
+const store = createStore(root, applyMiddleware(thunk))
 export default store;
 
 
