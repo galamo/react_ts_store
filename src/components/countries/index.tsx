@@ -15,8 +15,6 @@ class CountriesPage extends React.Component<any, any> {
     }
 
     componentDidMount() {
-        console.log("component is ready!!!!");
-
         axios.get("https://restcountries.eu/rest/v2/all").then(res => {
             console.log("data resolved");
             console.log("set state");
