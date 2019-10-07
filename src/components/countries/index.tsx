@@ -96,14 +96,14 @@ class CountriesPage extends React.Component<any, any> {
     // }
 
     render() {
-        const { countries } = this.props;
+        const { countries, user } = this.props;
         if (!countries.length) return null;
         const headers = getHeaders(countries);
         const data = this.getTableBody(countries);
         return (
             <div>
                 <div>
-                    <Header headerStyle={{ fontSize: "20px" }} title={this.props.user} />
+                    <Header headerStyle={{ fontSize: "20px" }} title={user} />
                 </div>
                 <StoreTable headers={headers} data={data} />
             </div>
