@@ -1,7 +1,8 @@
 import Actions from "./actions.config";
 
 const initialState = {
-    user: null
+    user: null,
+    countries: []
 }
 
 export default function root(state = initialState, action: any) {
@@ -16,14 +17,21 @@ export default function root(state = initialState, action: any) {
             }
 
         }
+
+        // deprecated in version 24.10.209
         case Actions.GET_COUNTRIES: {
             // some logic
             return {
                 ...state,
                 countries: ["ISR", "AFG"]
             }
-
         }
+
+        case Actions.GET_COUNTRIES_SUCCESS: {
+            const { countries } = action.payload
+            return { ...state, countries }
+        }
+
         default: {
             return state;
         }

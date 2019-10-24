@@ -6,7 +6,11 @@
 //4. connect
 import { createStore, applyMiddleware } from "redux"
 import root from "./reducers"
-const store = createStore(root)
+import thunk from "redux-thunk"
+// import saga from "redux-saga"
+const store = createStore(root, applyMiddleware(thunk))
 export default store;
+
+
 
 
