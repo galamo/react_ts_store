@@ -2,7 +2,8 @@ import Actions from "./actions.config";
 
 const initialState = {
     user: null,
-    countries: []
+    countries: [],
+    countriesLoading: false
 }
 
 export default function root(state = initialState, action: any) {
@@ -29,7 +30,11 @@ export default function root(state = initialState, action: any) {
 
         case Actions.GET_COUNTRIES_SUCCESS: {
             const { countries } = action.payload
-            return { ...state, countries }
+            return { ...state, countries, countriesLoading: false }
+        }
+
+        case Actions.GET_COUNTRIES_PENDING: {
+            return { ...state, countriesLoading: true }
         }
 
         default: {

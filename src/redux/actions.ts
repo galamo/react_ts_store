@@ -22,13 +22,20 @@ export const getCountriesSuccess = (countries: Array<any>) => {
     }
 }
 
+export const getCountriesPending = () => {
+    return {
+        type: Actions.GET_COUNTRIES_PENDING,
+    }
+}
+
 // async action
 export const getCountries = () => {
     return async (dispachFn: any) => {
-
+        //lunch loader
+        dispachFn(getCountriesPending()) //1
         // call server api 
-        const countries = await getCountriesService();
+        const countries = await getCountriesService(); //2
         // save the countries in store AKA dispatch countrie_success
-        dispachFn(getCountriesSuccess(countries))
+        dispachFn(getCountriesSuccess(countries)) //1
     }
 }

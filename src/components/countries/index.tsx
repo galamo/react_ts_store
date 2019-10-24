@@ -4,8 +4,10 @@ import axios from "axios";
 import StoreTable from "../store-table";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import store from "../../redux/store";
+
 import { getCountries } from "../../redux/actions";
+import css from "./style.module.css";
+
 // statful component
 // countries
 
@@ -20,11 +22,13 @@ class CountriesPage extends React.Component<any, any> {
     }
 
     render() {
-        const { countries } = this.props;
-        console.log(countries, "countries page....")
-        if (!countries.length) return <h1> loading...</h1>;
+        const { countries, countriesLoading } = this.props;
+
+        if (countriesLoading) return <div className={css.loader}></div>
+        if (!countries.length) return <h1> no data...</h1>;
         const headers = getHeaders(countries);
         const data = getTableBody(countries);
+
 
         return (
             <div>
@@ -99,10 +103,29 @@ function getTableRow(row: any) {
     });
 }
 
+interface Country {
+    capital: string,
+    name: string,
+    alpha3Code: string,
+    region: string,
+    borders: Array<string>,
+    flag: string
+}
 const mapStateToProps = (state: any) => {
-    const { countries } = state;
+    const { countries, countriesLoading } = state;
+    const mappedCountries = countries.map((country: Country) => {
+        const { capital, name, alpha3Code, region, borders, flag } = country;
+        return {
+            capital: capital,
+            name: name,
+            code: alpha3Code,
+            region: region,
+            borders: borders,
+            flag: flag
+        };
+    })
+    return { countries: mappedCountries, countriesLoading }
 
-    return state;
 };
 
 
