@@ -1,8 +1,11 @@
 import React from "react";
 import axios from "axios";
 import AddComment from "../add-comment";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { addComment } from "../../redux/actions";
 
-export default class Country extends React.Component<any, any> {
+class Country extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     console.log(props.match);
@@ -44,7 +47,7 @@ export default class Country extends React.Component<any, any> {
         <img src={flag} width={400} height={400} />
         {getBorders(borders)}
         <br></br> */}
-        <AddComment />
+        <AddComment addCommentAction={this.props.reduxActions.addComments} />
       </div>
     );
   }
@@ -60,3 +63,22 @@ function getBorders(borders: any) {
     </ol>
   );
 }
+
+const mapStateToProps = (state: any) => {
+  return state;
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    //this object will be assigned to the component props
+    reduxActions: {
+      addComments: (comment: any) => {
+        dispatch(addComment(comment));
+      }
+    }
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Country);

@@ -29,8 +29,14 @@ export const getCountriesSuccessAction = (countries: any) => {
   };
 };
 
+export const getCountriesPending = () => {
+  return {
+    type: Actions.GET_COUNTRIES_PENDING
+  };
+};
 export const getCountriesAction = () => {
   return async (dispatch: any) => {
+    dispatch(getCountriesPending());
     const result = await Service.getCountries();
     dispatch(getCountriesSuccessAction(result.data));
   };

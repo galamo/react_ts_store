@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, KeyboardEventHandler } from "react";
 
 export default class AddComment extends React.Component<any, any> {
   constructor(props: any) {
@@ -10,10 +10,14 @@ export default class AddComment extends React.Component<any, any> {
     const { val } = this.state;
     return (
       <div>
-        <textarea value={val}></textarea>
+        <textarea
+          onChange={({target:HTMLTEXT}) => {}}
+          value={val}
+        ></textarea>
         <button
           onClick={(event: React.MouseEvent) => {
             const { target } = event;
+            console.log((target as HTMLTextAreaElement).value);
             this.setState({ val: (target as HTMLTextAreaElement).value });
           }}
         >

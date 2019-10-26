@@ -4,7 +4,8 @@ const initialState = {
   user: null,
   favorites: [],
   countries: [],
-  comments: []
+  comments: [],
+  isLoadingCountries: false
 };
 
 export default function root(state = initialState, action: any) {
@@ -26,6 +27,9 @@ export default function root(state = initialState, action: any) {
     case Actions.ADD_COMMENT: {
       return { ...state };
     }
+    case Actions.GET_COUNTRIES_PENDING: {
+      return { ...state, isLoadingCountries: true };
+    }
 
     case Actions.GET_COUNTRIES_SUCCESS: {
       const { countries: data } = action.payload;
@@ -40,7 +44,7 @@ export default function root(state = initialState, action: any) {
           flag: flag
         };
       });
-      return { ...state, countries };
+      return { ...state, countries, isLoadingCountries: false };
     }
 
     default: {
