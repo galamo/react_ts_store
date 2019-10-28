@@ -42,6 +42,10 @@ export default function ButtonAppBar() {
           <Button color="inherit">
             <Link to="/countries">Countries</Link>
           </Button>
+
+          <Button color="inherit">
+            <Link to="/add-images">Add images</Link>
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

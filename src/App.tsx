@@ -8,8 +8,7 @@ import ButtonAppBar from "./components/navBar/index";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Country from "./components/country";
 import Settings from "./components/settings";
-
-
+import AddImages from "./components/add-images";
 class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
@@ -82,6 +81,8 @@ class App extends React.Component<any, any> {
             <Route path="/countries" component={CountriesPage} />
             <Route path="/settings" component={Settings} />
             <Route path="/country/:code" component={Country} />
+            <Route path="/add-images" component={AddImages} />
+
             <Route path="**" component={() => <h1> Not Found! </h1>} />
           </Switch>
         </BrowserRouter>
