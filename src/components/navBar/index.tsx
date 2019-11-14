@@ -9,45 +9,41 @@ import { Link } from "react-router-dom";
 // BrowserRouter as Router, Route,
 // V
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  title: {
-    flexGrow: 1
-  }
+    root: {
+        flexGrow: 1
+    },
+    menuButton: {
+        marginRight: theme.spacing(2)
+    },
+    title: {
+        flexGrow: 1
+    }
 }));
 
 export default function ButtonAppBar() {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          ></IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Market Place
+    return (
+        <div className={classes.root}>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton
+                        edge="start"
+                        className={classes.menuButton}
+                        color="inherit"
+                        aria-label="menu"
+                    ></IconButton>
+                    <Typography variant="h6" className={classes.title}>
+                        Flights
           </Typography>
-          <Button color="inherit">
-            <Link to="/settings">Settings</Link>
-          </Button>
-          <Button color="inherit">
-            <Link to="/countries">Countries</Link>
-          </Button>
-
-          <Button color="inherit">
-            <Link to="/add-images">Add images</Link>
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+                    <Button color="inherit">
+                        <Link to="/home">Home</Link>
+                    </Button>
+                    <Button color="inherit">
+                        <Link to="/signIn">signIn</Link>
+                    </Button>
+                </Toolbar>
+            </AppBar>
+        </div>
+    );
 }
